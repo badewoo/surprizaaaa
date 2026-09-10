@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cat de mult ma iubesti azi💗</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #fff0f5, #ffd6e5, #ffeaf2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #4a2635;
+        }
+
+        /* Fundal cu inimioare */
+
+        .hearts {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .heart-bg {
+            position: absolute;
+            bottom: -50px;
+            font-size: 20px;
+            opacity: 0.35;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Container principal */
+
+        .container {
+            position: relative;
+            z-index: 2;
+            width: min(90%, 500px);
+            text-align: center;
+            padding: 35px 25px;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(190, 80, 120, 0.18);
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #d94f7c;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #916172;
+            margin-bottom: 25px;
+        }
+
+        /* Love Meter */
+
+        .meter {
+            width: 100%;
+            height: 12px;
+            background: #f4cbd8;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 20px 0 10px;
+        }
+
+        .meter-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff6f9c, #e83e72);
+            border-radius: 20px;
+            transition: width 1s cubic-bezier(.4, 0, .2, 1);
+            box-shadow: 0 0 15px rgba(232, 62, 114, 0.5);
+        }
+
+        .percentage {
+            font-size: 18px;
+            font-weight: 600;
+            color: #c43d68;
+            margin-bottom: 20px;
+        }
+
+        /* Inima */
+
+        .heart-container {
+            height: 230px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heart {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            transform: rotate(-45deg);
+            background: #ffd2df;
+            transition: all 0.8s ease;
+            box-shadow: 0 0 25px rgba(255, 82, 130, 0.15);
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            background: #ffd2df;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -65px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 65px;
+            top: 0;
+        }
+
+        /* Umplerea inimii */
+
+        .heart-fill {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 0%;
+            background: #ff4f86;
+            transition: height 1s cubic-bezier(.4, 0, .2, 1);
+            z-index: 2;
+        }
+
+        .heart-fill::before,
+        .heart-fill::after {
+            content: "";
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            background: #ff4f86;
+            border-radius: 50%;
+        }
+
+        .heart-fill::before {
+            top: -65px;
+            left: 0;
+        }
+
+        .heart-fill::after {
+            left: 65px;
+            top: 0;
+        }
+
+        /* Text */
+
+        .message {
+            min-height: 50px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #bd3d67;
+            margin: 10px 0 25px;
+            opacity: 1;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Buton */
+
+        button {
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #ff5c91, #d9366d);
+            padding: 14px 28px;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(217, 54, 109, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(217, 54, 109, 0.35);
+        }
+
+        button:active {
+            transform: scale(0.96);
+        }
+
+        #surpriseButton {
+            display: none;
+            margin-top: 10px;
+        }
+
+        /* Scrisoarea */
+
+        .letter {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            inset: 0;
+            background: rgba(80, 35, 50, 0.35);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .letter-content {
+            width: min(90%, 600px);
+            max-height: 85vh;
+            overflow-y: auto;
+            background: #fffafc;
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 25px 80px rgba(80, 20, 45, 0.3);
+            animation: letterAppear 0.5s ease;
+            text-align: left;
+        }
+
+        @keyframes letterAppear {
+            from {
+                transform: translateY(30px) scale(0.95);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .letter-content h2 {
+            text-align: center;
+            color: #d43f70;
+            margin-bottom: 25px;
+        }
+
+        .letter-text {
+            white-space: pre-line;
+            line-height: 1.8;
+            font-size: 16px;
+            color: #583b47;
+        }
+
+        .close-button {
+            display: block;
+            margin: 25px auto 0;
+            background: #f0a5bb;
+            box-shadow: none;
+        }
+
+        /* Confetti */
+
+        .confetti {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            top: -10px;
+            z-index: 20;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+            }
+        }
+
+        /* Mobile */
+
+        @media (max-width: 500px) {
+            h1 {
+                font-size: 27px;
+            }
+
+            .heart-container {
+                height: 200px;
+            }
+
+            .heart,
+            .heart::before,
+            .heart::after,
+            .heart-fill,
+            .heart-fill::before,
+            .heart-fill::after {
+                width: 110px;
+                height: 110px;
+            }
+
+            .heart::before,
+            .heart-fill::before {
+                top: -55px;
+            }
+
+            .heart::after,
+            .heart-fill::after {
+                left: 55px;
+            }
+
+            .letter-content {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Inimioare în fundal -->
+    <div class="hearts" id="backgroundHearts"></div>
+
+    <main class="container">
+
+        <h1>Cat de mult ma iubesti azi💗</h1>
+
+        <p class="subtitle">
+            Hai să vedem cât de multă iubire încape aici...
+        </p>
+
+        <div class="heart-container">
+            <div class="heart" id="heart">
+                <div class="heart-fill" id="heartFill"></div>
+            </div>
+        </div>
+
+        <div class="percentage" id="percentage">
+            0%
+        </div>
+
+        <div class="meter">
+            <div class="meter-fill" id="meterFill"></div>
+        </div>
+
+        <div class="message" id="message">
+            Apasă butonul și hai să vedem 💗
+        </div>
+
+        <button id="loveButton" onclick="increaseLove()">
+            Crește iubirea 💗
+        </button>
+
+        <button id="surpriseButton" onclick="openLetter()">
+            Surpriza 💌
+        </button>
+
+    </main>
+
+
+    <!-- SCRISOAREA -->
+
+    <div class="letter" id="letter">
+
+        <div class="letter-content">
+
+            <h2>Pentru tine 💗</h2>
+
+            <div class="letter-text">
+
+                Draga Daria,
+
+Uite ca au trecut 9 luni de cand am avut cea mai oribila zi la scoala cu 2 teste la info insa va fii ziua ce nu o voi uita niciodata in viata mea, ziua de 11 decembrie 2025. Inca de prima oara cand te am vazut mi ai atras atentia si am inceput sa te cunosc si sa mi dau seama ca esti fata langa care doresc sa mi petrec tot timpul meu liber. Intodeauna ai avut un mod sa ma faci sa ma simt mai bine, sa ma simt ascultat si sa nu ma simt judecat cand incep sa iti spun lucruri personale de care eram ashamed. Ai fost alaturi de mine in atatea momente bune si rele si eu consider si sper ca am fost langa tine la fel si eu vreau sa ramanem asa tot restul vietii. Esti primul meu gand dimineata si ultimul meu gand seara, toate melodiile de dragoste sunt despre tine si nici o secunda din astea 9 luni nu a trecut fara sa fiu grateful ca te am. Esti atat de frumoasa,eleganta si ai un stil care te deosebeste de oricare fata pe care am vazut o in viata mea si stiu sigur ca orice s ar intampla vei fi prima mea iubire adevarata pe care nu o sa o uit niciodata. Esti persoana mea preferata din tot universul asta si esti atat de blanda cu mine si draguta, in orice context social te asiguri ca ma simt comod si ca sunt bagat in seama si intodeauna tii cont de lucrurile mici sau mari pe care ti le am spus mai recent sau mai de mult. Am avut si momente grele insa am demonstrat ca iubirea dintre noi e mai mare decat orice cearta si vreau sa iti spun ca o sa ai un loc special in sufletul meu toata orice ne-ar rezerva viitorul. Te iubesc iubita mea si sper sa citesti asta cu zambetul pe buze fara lacrimi.
+
+Cu drag , iubitul tau, Alex💗
+
+            </div>
+
+            <button class="close-button" onclick="closeLetter()">
+                Închide 💗
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        let love = 0;
+
+        const messages = {
+            0: "Apasă butonul și hai să vedem 💗",
+            20: "Hai noo.. 😭💗",
+            40: "Se poate mai bine 😭",
+            60: "Ești aproape 💗",
+            80: "Încă puțin...💗",
+            100: "Așa de mult te iubesc și eu 💗"
+        };
+
+        function increaseLove() {
+
+            if (love >= 100) return;
+
+            love += 20;
+
+            document.getElementById("percentage").textContent = love + "%";
+
+            document.getElementById("meterFill").style.width = love + "%";
+
+            document.getElementById("heartFill").style.height = love + "%";
+
+            const message = document.getElementById("message");
+
+            message.style.opacity = "0";
+
+            setTimeout(() => {
+
+                message.textContent = messages[love];
+
+                message.style.opacity = "1";
+
+            }, 250);
+
+
+            /* Efect de "heartbeat" */
+
+            const heart = document.getElementById("heart");
+
+            heart.style.transform = "rotate(-45deg) scale(1.15)";
+
+            setTimeout(() => {
+
+                heart.style.transform = "rotate(-45deg) scale(1)";
+
+            }, 350);
+
+
+            /* Când ajunge la 100% */
+
+            if (love === 100) {
+
+                document.getElementById("loveButton").style.display = "none";
+
+                setTimeout(() => {
+
+                    document.getElementById("surpriseButton").style.display = "inline-block";
+
+                    createConfetti();
+
+                }, 800);
+
+            }
+        }
+
+
+        /* Deschide scrisoarea */
+
+        function openLetter() {
+
+            document.getElementById("letter").style.display = "flex";
+
+        }
+
+
+        /* Închide scrisoarea */
+
+        function closeLetter() {
+
+            document.getElementById("letter").style.display = "none";
+
+        }
+
+
+        /* Inimioare plutitoare */
+
+        function createBackgroundHearts() {
+
+            const container = document.getElementById("backgroundHearts");
+
+            const symbols = ["❤️", "💕", "💗", "💖"];
+
+            for (let i = 0; i < 18; i++) {
+
+                const heart = document.createElement("div");
+
+                heart.classList.add("heart-bg");
+
+                heart.textContent =
+                    symbols[Math.floor(Math.random() * symbols.length)];
+
+                heart.style.left = Math.random() * 100 + "%";
+
+                heart.style.animationDuration =
+                    (7 + Math.random() * 8) + "s";
+
+                heart.style.animationDelay =
+                    Math.random() * 8 + "s";
+
+                heart.style.fontSize =
+                    (12 + Math.random() * 18) + "px";
+
+                container.appendChild(heart);
+            }
+        }
+
+
+        /* Confetti la 100% */
+
+        function createConfetti() {
+
+            for (let i = 0; i < 80; i++) {
+
+                const confetti = document.createElement("div");
+
+                confetti.classList.add("confetti");
+
+                confetti.textContent = "❤️";
+
+                confetti.style.left = Math.random() * 100 + "vw";
+
+                confetti.style.animationDuration =
+                    (2 + Math.random() * 2) + "s";
+
+                confetti.style.animationDelay =
+                    Math.random() * 0.8 + "s";
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+
+                    confetti.remove();
+
+                }, 4000);
+            }
+        }
+
+
+        createBackgroundHearts();
+
+    </script>
+
+</body>
+</html>
